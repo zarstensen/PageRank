@@ -14,8 +14,9 @@ class print_delayer:
     def extend(self, input):
         if isinstance(input, Markdown):
             input = input.data
-        if isinstance(input, str):
-            input = input.replace("\n", "\n\n")
+        if not isinstance(input, str):
+            input = f"${latex(input)}$"
+        input = input.replace("\n", "\n\n")
         self.delayed_print += input
 
     def adisplay(self, input):
