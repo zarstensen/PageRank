@@ -27,12 +27,46 @@ class print_delayer:
         self.extend(input)
         mdisplay(self)
 
+    def clear(self):
+        self.delayed_print = ""
 
     def __str__(self):
         temp = self.delayed_print
         self.delayed_print = ""
         return temp
     
+class print_delayer2:
+    def __init__(self):
+        self.delayed_print = ""
+
+    def add(self, input):
+        self.extend("\n")
+        self.extend(input)
+
+    def extend(self, input):
+        if isinstance(input, Markdown):
+            input = input.data
+        if not isinstance(input, str):
+            input = f"${latex(input)}$"
+        input = input.replace("\n", "\n\n")
+        self.delayed_print += input
+
+    def adisplay(self, input):
+        self.add(input)
+        mdisplay(self)
+    
+    def edisplay(self, input):
+        self.extend(input)
+        mdisplay(self)
+
+    def clear(self):
+        self.delayed_print = ""
+
+    def __str__(self):
+        temp = self.delayed_print
+        self.delayed_print = ""
+        return temp
+
 # p = print_delayer()
 
 # p1 = symbols("p_1")
